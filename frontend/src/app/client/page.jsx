@@ -23,6 +23,7 @@ import {
   PlusCircle,
   FileText as FileTextIcon,
 } from "lucide-react"
+import axios from "axios"
 
 const features = [
   { name: "AI Document Generation", icon: FileSignature },
@@ -38,6 +39,8 @@ export default function ClientDashboard() {
   const router = useRouter()
   const [isNavOpen, setIsNavOpen] = useState(false)
   const [selectedFeature, setSelectedFeature] = useState(null)
+  const [file, setFile] = useState(null)
+  const [summary, setSummary] = useState("")
 
   const handleLogout = () => {
     router.push('/')
@@ -51,6 +54,50 @@ export default function ClientDashboard() {
     setSelectedFeature(feature)
     if (window.innerWidth < 768) {
       setIsNavOpen(false)
+    }
+  }
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0])
+  }
+
+  const handleFileUpload = async () => {
+    if (!file) {
+      alert("Please upload a file first!")
+      return
+    }
+
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const uploadResponse = await axios.post('http://127.0.0.1:5000/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+
+      if (uploadResponse.data.message === "Document processed") {
+        alert("Document uploaded successfully!")
+      } else {
+        alert("There was an error uploading the document.")
+      }
+    } catch (error) {
+      console.error("Error uploading document:", error)
+      alert("Error uploading document.")
+    }
+  }
+
+  const handleGenerateSummary = async () => {
+    try {
+      const summaryResponse = await axios.post('http://127.0.0.1:5000/ask_and_get_answer', {
+        question: "Can you provide a summary of the document?"
+      })
+
+      setSummary(summaryResponse.data.answer || "No summary available.")
+    } catch (error) {
+      console.error("Error generating summary:", error)
+      alert("Error generating summary.")
     }
   }
 
@@ -68,13 +115,7 @@ export default function ClientDashboard() {
         return (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Legal Chatbot</h2>
-            <div className="border p-4 h-96 overflow-y-auto bg-white">
-              {/* Chat messages would go here */}
-            </div>
-            <div className="flex space-x-2">
-              <Input placeholder="Ask a legal question..." />
-              <Button>Send</Button>
-            </div>
+            <p>Chatbot functionality will be here.</p>
           </div>
         )
       case "Contract Review":
@@ -89,7 +130,6 @@ export default function ClientDashboard() {
         return (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Legal Case Tracking</h2>
-            {/* Timeline component would go here */}
             <p>Your case timeline will appear here.</p>
           </div>
         )
@@ -117,13 +157,15 @@ export default function ClientDashboard() {
         return (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">AI-Generated Document Summary</h2>
-            <Input type="file" />
-            <Button>Generate Summary</Button>
+            <Input type="file" onChange={handleFileChange} />
+            <Button onClick={handleFileUpload}>Upload Document</Button>
+            <Button onClick={handleGenerateSummary}>Generate Summary</Button>
+            {summary && <div className="mt-4 p-4 bg-gray-100 rounded-lg"><strong>Summary:</strong> {summary}</div>}
           </div>
         )
       default:
         return (
-            <main className="flex-1 p-6">
+          <main className="flex-1 p-6">
             <h1 className="text-3xl font-bold mb-6">Welcome, Client</h1>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
               <Card>
@@ -166,10 +208,6 @@ export default function ClientDashboard() {
                   <p className="text-xs text-muted-foreground">+5 from last month</p>
                 </CardContent>
               </Card>
-            </div>
-            <div className="mt-6">
-              <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
-              {/* Add a list of recent activities or case updates here */}
             </div>
           </main>
         )
