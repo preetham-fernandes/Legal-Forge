@@ -10,20 +10,20 @@ exports.id = "vendor-chunks/mime-db";
 exports.ids = ["vendor-chunks/mime-db"];
 exports.modules = {
 
-/***/ "(ssr)/../node_modules/mime-db/index.js":
-/*!****************************************!*\
-  !*** ../node_modules/mime-db/index.js ***!
-  \****************************************/
+/***/ "(ssr)/./node_modules/mime-db/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/mime-db/index.js ***!
+  \***************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("/*!\n * mime-db\n * Copyright(c) 2014 Jonathan Ong\n * Copyright(c) 2015-2022 Douglas Christopher Wilson\n * MIT Licensed\n */\n\n/**\n * Module exports.\n */\n\nmodule.exports = __webpack_require__(/*! ./db.json */ \"(ssr)/../node_modules/mime-db/db.json\")\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHNzcikvLi4vbm9kZV9tb2R1bGVzL21pbWUtZGIvaW5kZXguanMiLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTs7QUFFQSw4RkFBcUMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9sZWdhbC1mb3JnZS8uLi9ub2RlX21vZHVsZXMvbWltZS1kYi9pbmRleC5qcz9iNjY3Il0sInNvdXJjZXNDb250ZW50IjpbIi8qIVxuICogbWltZS1kYlxuICogQ29weXJpZ2h0KGMpIDIwMTQgSm9uYXRoYW4gT25nXG4gKiBDb3B5cmlnaHQoYykgMjAxNS0yMDIyIERvdWdsYXMgQ2hyaXN0b3BoZXIgV2lsc29uXG4gKiBNSVQgTGljZW5zZWRcbiAqL1xuXG4vKipcbiAqIE1vZHVsZSBleHBvcnRzLlxuICovXG5cbm1vZHVsZS5leHBvcnRzID0gcmVxdWlyZSgnLi9kYi5qc29uJylcbiJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///(ssr)/../node_modules/mime-db/index.js\n");
+eval("/*!\n * mime-db\n * Copyright(c) 2014 Jonathan Ong\n * Copyright(c) 2015-2022 Douglas Christopher Wilson\n * MIT Licensed\n */\n\n/**\n * Module exports.\n */\n\nmodule.exports = __webpack_require__(/*! ./db.json */ \"(ssr)/./node_modules/mime-db/db.json\")\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHNzcikvLi9ub2RlX21vZHVsZXMvbWltZS1kYi9pbmRleC5qcyIsIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBOztBQUVBLDZGQUFxQyIsInNvdXJjZXMiOlsid2VicGFjazovL2xlZ2FsLWZvcmdlLy4vbm9kZV9tb2R1bGVzL21pbWUtZGIvaW5kZXguanM/NjI3ZiJdLCJzb3VyY2VzQ29udGVudCI6WyIvKiFcbiAqIG1pbWUtZGJcbiAqIENvcHlyaWdodChjKSAyMDE0IEpvbmF0aGFuIE9uZ1xuICogQ29weXJpZ2h0KGMpIDIwMTUtMjAyMiBEb3VnbGFzIENocmlzdG9waGVyIFdpbHNvblxuICogTUlUIExpY2Vuc2VkXG4gKi9cblxuLyoqXG4gKiBNb2R1bGUgZXhwb3J0cy5cbiAqL1xuXG5tb2R1bGUuZXhwb3J0cyA9IHJlcXVpcmUoJy4vZGIuanNvbicpXG4iXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///(ssr)/./node_modules/mime-db/index.js\n");
 
 /***/ }),
 
-/***/ "(ssr)/../node_modules/mime-db/db.json":
-/*!***************************************!*\
-  !*** ../node_modules/mime-db/db.json ***!
-  \***************************************/
+/***/ "(ssr)/./node_modules/mime-db/db.json":
+/*!**************************************!*\
+  !*** ./node_modules/mime-db/db.json ***!
+  \**************************************/
 /***/ ((module) => {
 
 "use strict";

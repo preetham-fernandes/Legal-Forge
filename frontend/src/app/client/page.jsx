@@ -1,13 +1,14 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Calendar } from "@/components/ui/calendar"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Calendar } from "@/components/ui/calendar";
+import LegalChatbot from "@/components/ui/legal_chatbot"
 import {
   Gavel,
   FileText,
@@ -22,8 +23,8 @@ import {
   Calendar as CalendarIcon,
   PlusCircle,
   FileText as FileTextIcon,
-} from "lucide-react"
-import axios from "axios"
+} from "lucide-react";
+import axios from "axios";
 
 const features = [
   { name: "AI Document Generation", icon: FileSignature },
@@ -33,73 +34,98 @@ const features = [
   { name: "Consultation Booking", icon: CalendarIcon },
   { name: "Document Creation", icon: PlusCircle },
   { name: "AI Document Summary", icon: FileTextIcon },
-]
+];
 
 export default function ClientDashboard() {
-  const router = useRouter()
-  const [isNavOpen, setIsNavOpen] = useState(false)
-  const [selectedFeature, setSelectedFeature] = useState(null)
-  const [file, setFile] = useState(null)
-  const [summary, setSummary] = useState("")
+  const router = useRouter();
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const [selectedFeature, setSelectedFeature] = useState(null);
+  const [file, setFile] = useState(null);
+  const [summary, setSummary] = useState("");
+  const [userQuestion, setUserQuestion] = useState("");
+  const [chatbotResponse, setChatbotResponse] = useState("");
 
   const handleLogout = () => {
-    router.push('/')
-  }
+    router.push("/");
+  };
 
   const toggleNav = () => {
-    setIsNavOpen(!isNavOpen)
-  }
+    setIsNavOpen(!isNavOpen);
+  };
 
   const selectFeature = (feature) => {
-    setSelectedFeature(feature)
+    setSelectedFeature(feature);
     if (window.innerWidth < 768) {
-      setIsNavOpen(false)
+      setIsNavOpen(false);
     }
-  }
+  };
 
   const handleFileChange = (event) => {
-    setFile(event.target.files[0])
-  }
+    setFile(event.target.files[0]);
+  };
 
   const handleFileUpload = async () => {
     if (!file) {
-      alert("Please upload a file first!")
-      return
+      alert("Please upload a file first!");
+      return;
     }
 
     try {
-      const formData = new FormData()
-      formData.append('file', file)
+      const formData = new FormData();
+      formData.append("file", file);
 
-      const uploadResponse = await axios.post('http://127.0.0.1:5000/upload', formData, {
+      const uploadResponse = await axios.post("http://127.0.0.1:5000/upload", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       if (uploadResponse.data.message === "Document processed") {
-        alert("Document uploaded successfully!")
+        alert("Document uploaded successfully!");
       } else {
-        alert("There was an error uploading the document.")
+        alert("There was an error uploading the document.");
       }
     } catch (error) {
-      console.error("Error uploading document:", error)
-      alert("Error uploading document.")
+      console.error("Error uploading document:", error);
+      alert("Error uploading document.");
     }
-  }
+  };
 
   const handleGenerateSummary = async () => {
     try {
-      const summaryResponse = await axios.post('http://127.0.0.1:5000/ask_and_get_answer', {
-        question: "Can you provide a summary of the document?"
-      })
+      const summaryResponse = await axios.post("http://127.0.0.1:5000/ask_and_get_answer", {
+        question: "Can you provide a summary of the document?",
+      });
 
-      setSummary(summaryResponse.data.answer || "No summary available.")
+      setSummary(summaryResponse.data.answer || "No summary available.");
     } catch (error) {
-      console.error("Error generating summary:", error)
-      alert("Error generating summary.")
+      console.error("Error generating summary:", error);
+      alert("Error generating summary.");
     }
-  }
+  };
+
+  const handleQuestionChange = (event) => {
+    setUserQuestion(event.target.value);
+  };
+
+  const handleAskQuestion = async () => {
+    if (!userQuestion) {
+      alert("Please enter a question.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://127.0.0.1:5000/legal_question", {
+        question: userQuestion,
+      });
+
+      setChatbotResponse(response.data.answer || "No response available.");
+      setUserQuestion(""); // Clear input after sending the question
+    } catch (error) {
+      console.error("Error asking question:", error);
+      alert("Error asking question.");
+    }
+  };
 
   const renderFeatureContent = () => {
     switch (selectedFeature) {
@@ -110,29 +136,24 @@ export default function ClientDashboard() {
             <Textarea placeholder="Enter your document requirements..." />
             <Button>Generate Document</Button>
           </div>
-        )
+        );
       case "Legal Chatbot":
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Legal Chatbot</h2>
-            <p>Chatbot functionality will be here.</p>
-          </div>
-        )
+          return <LegalChatbot />;
       case "Contract Review":
         return (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Contract Review</h2>
-            <Input type="file" />
-            <Button>Analyze Contract</Button>
+            <Input type="file" onChange={handleFileChange} />
+            <Button onClick={() => alert("Analyze Contract feature coming soon!")}>Analyze Contract</Button>
           </div>
-        )
+        );
       case "Case Tracking":
         return (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Legal Case Tracking</h2>
             <p>Your case timeline will appear here.</p>
           </div>
-        )
+        );
       case "Consultation Booking":
         return (
           <div className="space-y-4">
@@ -140,7 +161,7 @@ export default function ClientDashboard() {
             <Calendar />
             <Button>Find Available Lawyers</Button>
           </div>
-        )
+        );
       case "Document Creation":
         return (
           <div className="space-y-4">
@@ -152,7 +173,7 @@ export default function ClientDashboard() {
               <Button>Create Terms of Service</Button>
             </div>
           </div>
-        )
+        );
       case "AI Document Summary":
         return (
           <div className="space-y-4">
@@ -162,7 +183,7 @@ export default function ClientDashboard() {
             <Button onClick={handleGenerateSummary}>Generate Summary</Button>
             {summary && <div className="mt-4 p-4 bg-gray-100 rounded-lg"><strong>Summary:</strong> {summary}</div>}
           </div>
-        )
+        );
       default:
         return (
           <main className="flex-1 p-6">
@@ -210,9 +231,9 @@ export default function ClientDashboard() {
               </Card>
             </div>
           </main>
-        )
+        );
     }
-  }
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
@@ -255,5 +276,5 @@ export default function ClientDashboard() {
         </main>
       </div>
     </div>
-  )
+  );
 }
