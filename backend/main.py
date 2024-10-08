@@ -260,6 +260,71 @@ def create_contract():
     except Exception as e:
         print("Error in create_contract:", e)
         return jsonify({"error": "Error creating contract"}), 500
+    
+
+@app.route('/get_cases', methods=['POST'])
+def get_cases():
+    user_case_description = request.json.get('case_description')
+    if not user_case_description:
+        return jsonify({"error": "No case description provided"}), 400
+
+    prompt_template = '''
+    You are a legal assistant. A lawyer has provided a case description, and you need to find similar precedents. 
+    The cases should be created based on laws in India.
+    Please provide details for each relevant case:
+    1. Case Name
+    2. Client Information
+    3. Status of the case
+    4. Description
+    5. Summary
+    6. Judges' Final Outcome
+    
+    Case Description: {case_description}
+    '''
+
+    formatted_prompt = prompt_template.format(case_description=user_case_description)
+    llm = genai(model='gemini-pro', temperature=1)
+
+    response_text = llm(formatted_prompt).replace('*', '').strip()
+
+    cases = []
+    case_entries = response_text.split("\n\n")  # Split into individual case entries
+    for case_data in case_entries:
+        if case_data.strip():  # Ensure there is data to process
+            parts = case_data.split("\n")  # Split the case data into lines
+            case = {
+                "title": parts[0].replace("Case Name:", "").strip() if len(parts) > 0 else "N/A",
+                "client_information": {
+                    "plaintiff": "N/A",
+                    "defendant": "N/A"
+                },
+                "status": "N/A",
+                "description": "N/A",
+                "summary": "N/A",
+                "judges_final_outcome": "N/A"
+            }
+            
+            # Check for client information (parts[1]) and update accordingly
+            if len(parts) > 1:
+                client_info = parts[1].strip()
+                if "Client Information:" in client_info:
+                    clients = client_info.split(';')
+                    case["client_information"]["plaintiff"] = next((p.replace("Plaintiff:", "").strip() for p in clients if "Plaintiff:" in p), "N/A")
+                    case["client_information"]["defendant"] = next((d.replace("Defendant:", "").strip() for d in clients if "Defendant:" in d), "N/A")
+
+            # Check for other parts and update case details
+            if len(parts) > 2:
+                case["status"] = parts[2].replace("Status of the case:", "").strip()
+            if len(parts) > 3:
+                case["description"] = parts[3].replace("Description:", "").strip()
+            if len(parts) > 4:
+                case["summary"] = parts[4].replace("Summary:", "").strip()
+            if len(parts) > 5:
+                case["judges_final_outcome"] = parts[5].replace("Judges' Final Outcome:", "").strip()
+                
+            cases.append(case)
+
+    return jsonify({"cases": cases}), 200
 
 
 if __name__ == '__main__':

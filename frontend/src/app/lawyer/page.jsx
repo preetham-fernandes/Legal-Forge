@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import ContractReview from "@/components/ui/contract_review";
 import CreateContract from "@/components/ui/create_contract"
+import GetCases from "@/components/ui/get_cases" 
 import Logo from "@/assets/logo.png";
 import {
   Gavel,
@@ -33,6 +34,7 @@ const features = [
   { name: "Contract Review", icon: FileText }, 
   { name: "My Clients", icon: MessageCircle },
   { name: "Document Drafting", icon: FileSignature },
+  { name: "Search Cases", icon: FileSignature },
   { name: "Profile Customization", icon: UserCircle },
 ]
 
@@ -94,6 +96,8 @@ export default function LawyerDashboard() {
             {selectedFeature === "Create Contract" && <CreateContract />}
           </div>
         )
+        case "Search Cases":
+         return <GetCases />;
       case "Profile Customization":
         return (
           <div className="space-y-4">
