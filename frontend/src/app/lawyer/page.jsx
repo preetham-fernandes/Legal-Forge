@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import ContractReview from "@/components/ui/contract_review";
 import CreateContract from "@/components/ui/create_contract"
 import Logo from "@/assets/logo.png";
 import {
@@ -29,10 +30,9 @@ import {
 } from "lucide-react"
 
 const features = [
+  { name: "Contract Review", icon: FileText }, 
   { name: "My Clients", icon: MessageCircle },
   { name: "Document Drafting", icon: FileSignature },
-  { name: "Contract Review", icon: FileText }, 
-  { name: "Research Bot", icon: Bot },
   { name: "Profile Customization", icon: UserCircle },
 ]
 
@@ -59,18 +59,8 @@ export default function LawyerDashboard() {
 
   const renderFeatureContent = () => {
     switch (selectedFeature) {
-      case "Document Review":
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-[#DBA865]">Document Review Tool</h2>
-            <Input type="file" className="bg-white text-[#0A2E4D]" />
-            <Button className="bg-[#DBA865] text-[#0A2E4D] hover:bg-[#c99b5a]">Analyze Document</Button>
-            <div className="mt-4">
-              <h3 className="text-lg font-semibold text-[#DBA865]">Analysis Results</h3>
-              <p className="text-[#000000]">AI-highlighted areas of concern will appear here.</p>
-            </div>
-          </div>
-        )
+      case "Contract Review":
+        return <ContractReview />;
       case "My Clients":
         return (
           <div className="space-y-4">
