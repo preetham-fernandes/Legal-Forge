@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import CreateContract from "@/components/ui/create_contract"; 
 import {
   Gavel,
   FileText,
@@ -25,11 +26,9 @@ import {
 } from "lucide-react"
 
 const features = [
-  { name: "AI Legal Research", icon: BookOpen },
-  { name: "Document Review", icon: FileCheck },
   { name: "Client Communication", icon: MessageCircle },
-  { name: "Document Collaboration", icon: UsersIcon },
   { name: "AI Contract Review", icon: FileSignature },
+  { name: "Document Creation", icon: FileText }, 
   { name: "Profile Customization", icon: UserCircle },
 ]
 
@@ -37,6 +36,7 @@ export default function LawyerDashboard() {
   const router = useRouter()
   const [isNavOpen, setIsNavOpen] = useState(false)
   const [selectedFeature, setSelectedFeature] = useState(null)
+  const [selectedDocument, setSelectedDocument] = useState(null)
 
   const handleLogout = () => {
     router.push('/')
@@ -55,18 +55,6 @@ export default function LawyerDashboard() {
 
   const renderFeatureContent = () => {
     switch (selectedFeature) {
-      case "AI Legal Research":
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">AI-Assisted Legal Research</h2>
-            <Textarea placeholder="Enter case details or research query..." />
-            <Button>Conduct Research</Button>
-            <div className="mt-4">
-              <h3 className="text-lg font-semibold">Research Results</h3>
-              <p>AI-powered insights and relevant cases will appear here.</p>
-            </div>
-          </div>
-        )
       case "Document Review":
         return (
           <div className="space-y-4">
@@ -93,31 +81,20 @@ export default function LawyerDashboard() {
               <p>List of recent client interactions will appear here.</p>
             </div>
           </div>
-        )
-      case "Document Collaboration":
+        );
+      case "Document Creation":
+        if (selectedDocument === "contract") {
+          return <CreateContract />; // Render CreateContract component
+        }
         return (
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Document Collaboration</h2>
-            <Input placeholder="Enter document name or ID" />
-            <Button>Open Collaborative Editor</Button>
-            <div className="mt-4">
-              <h3 className="text-lg font-semibold">Recent Collaborations</h3>
-              <p>List of recent collaborative documents will appear here.</p>
+            <h2 className="text-2xl font-bold">Document Creation</h2>
+            <div className="grid grid-cols-4 gap-4">
+              <Button onClick={() => setSelectedDocument("contract")}>Create Contract</Button>
             </div>
+            {selectedFeature === "Create Contract" && <CreateContract />}
           </div>
-        )
-      case "AI Contract Review":
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">AI-Assisted Contract Review</h2>
-            <Input type="file" />
-            <Button>Analyze Contract</Button>
-            <div className="mt-4">
-              <h3 className="text-lg font-semibold">Contract Analysis</h3>
-              <p>AI-identified risks, clauses, and compliance issues will appear here.</p>
-            </div>
-          </div>
-        )
+        );
       case "Profile Customization":
         return (
           <div className="space-y-4">
@@ -130,7 +107,7 @@ export default function LawyerDashboard() {
         )
       default:
         return (
-            <main className="flex-1 p-6">
+          <main className="flex-1 p-6">
             <h1 className="text-3xl font-bold mb-6">Welcome, Lawyer</h1>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
               <Card>
