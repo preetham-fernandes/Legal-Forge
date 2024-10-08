@@ -158,7 +158,7 @@ export default function ClientDashboard() {
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">AI-Generated Document Summary</h2>
             <Input type="file" onChange={handleFileChange} />
-            <Button onClick={handleFileUpload}>Upload Document</Button>
+            <Button onClick={handleFileUpload} className="mr-4">Upload Document</Button>
             <Button onClick={handleGenerateSummary}>Generate Summary</Button>
             {summary && <div className="mt-4 p-4 bg-gray-100 rounded-lg"><strong>Summary:</strong> {summary}</div>}
           </div>
