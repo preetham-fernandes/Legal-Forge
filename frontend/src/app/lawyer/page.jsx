@@ -3,11 +3,13 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image";
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import CreateContract from "@/components/ui/create_contract"; 
+import CreateContract from "@/components/ui/create_contract"
+import Logo from "@/assets/logo.png";
 import {
   Gavel,
   FileText,
@@ -15,6 +17,7 @@ import {
   Users,
   DollarSign,
   BarChart,
+  Bot,
   Menu,
   X,
   BookOpen,
@@ -26,9 +29,10 @@ import {
 } from "lucide-react"
 
 const features = [
-  { name: "Client Communication", icon: MessageCircle },
-  { name: "AI Contract Review", icon: FileSignature },
-  { name: "Document Creation", icon: FileText }, 
+  { name: "My Clients", icon: MessageCircle },
+  { name: "Document Drafting", icon: FileSignature },
+  { name: "Contract Review", icon: FileText }, 
+  { name: "Research Bot", icon: Bot },
   { name: "Profile Customization", icon: UserCircle },
 ]
 
@@ -58,102 +62,109 @@ export default function LawyerDashboard() {
       case "Document Review":
         return (
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Document Review Tool</h2>
-            <Input type="file" />
-            <Button>Analyze Document</Button>
+            <h2 className="text-2xl font-bold text-[#DBA865]">Document Review Tool</h2>
+            <Input type="file" className="bg-white text-[#0A2E4D]" />
+            <Button className="bg-[#DBA865] text-[#0A2E4D] hover:bg-[#c99b5a]">Analyze Document</Button>
             <div className="mt-4">
-              <h3 className="text-lg font-semibold">Analysis Results</h3>
-              <p>AI-highlighted areas of concern will appear here.</p>
+              <h3 className="text-lg font-semibold text-[#DBA865]">Analysis Results</h3>
+              <p className="text-[#000000]">AI-highlighted areas of concern will appear here.</p>
             </div>
           </div>
         )
-      case "Client Communication":
+      case "My Clients":
         return (
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Client Communication Tools</h2>
+            <h2 className="text-2xl font-bold text-[#DBA865]">Client Communication Tools</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Button>Start Chat</Button>
-              <Button>Video Conference</Button>
-              <Button>Send Message</Button>
+              <Button className="bg-[#DBA865] text-[#0A2E4D] hover:bg-[#c99b5a]">Start Chat</Button>
+              <Button className="bg-[#DBA865] text-[#0A2E4D] hover:bg-[#c99b5a]">Video Conference</Button>
+              <Button className="bg-[#DBA865] text-[#0A2E4D] hover:bg-[#c99b5a]">Send Message</Button>
             </div>
             <div className="mt-4">
-              <h3 className="text-lg font-semibold">Recent Communications</h3>
-              <p>List of recent client interactions will appear here.</p>
+              <h3 className="text-lg font-semibold text-[#DBA865]">Recent Communications</h3>
+              <p className="text-[#000000]">List of recent client interactions will appear here.</p>
             </div>
           </div>
-        );
-      case "Document Creation":
+        )
+      case "Document Drafting":
         if (selectedDocument === "contract") {
-          return <CreateContract />; // Render CreateContract component
+          return <CreateContract />
         }
         return (
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Document Creation</h2>
+            <h2 className="text-2xl font-bold text-[#DBA865]">Document Drafting</h2>
             <div className="grid grid-cols-4 gap-4">
-              <Button onClick={() => setSelectedDocument("contract")}>Create Contract</Button>
+              <Button 
+                onClick={() => setSelectedDocument("contract")}
+                className="bg-[#DBA865] text-[#0A2E4D] hover:bg-[#c99b5a]"
+              >
+                Create Contract
+              </Button>
             </div>
             {selectedFeature === "Create Contract" && <CreateContract />}
           </div>
-        );
+        )
       case "Profile Customization":
         return (
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Profile Customization</h2>
-            <Input placeholder="Areas of specialization" />
-            <Input placeholder="Years of experience" />
-            <Textarea placeholder="Bio" />
-            <Button>Update Profile</Button>
+            <h2 className="text-2xl font-bold text-[#DBA865]">Profile Customization</h2>
+            <Input placeholder="Areas of specialization" className="bg-white text-[#0A2E4D]" />
+            <Input placeholder="Years of experience" className="bg-white text-[#0A2E4D]" />
+            <Textarea placeholder="Bio" className="bg-white text-[#0A2E4D]" />
+            <Button className="bg-[#DBA865] text-[#0A2E4D] hover:bg-[#c99b5a]">Update Profile</Button>
           </div>
         )
       default:
         return (
           <main className="flex-1 p-6">
-            <h1 className="text-3xl font-bold mb-6">Welcome, Lawyer</h1>
+            <h1 className="text-3xl font-bold mb-6 text-[#DBA865]">Welcome, Lawyer</h1>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              <Card>
+              <Card className="bg-[#0A2E4D] text-white">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Total Cases</CardTitle>
-                  <FileText className="h-4 w-4 text-muted-foreground" />
+                  <FileText className="h-4 w-4 text-[#DBA865]" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">25</div>
-                  <p className="text-xs text-muted-foreground">+2 from last month</p>
+                  <p className="text-xs text-[#DBA865]">+2 from last month</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="bg-[#0A2E4D] text-white">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Active Clients</CardTitle>
-                  <Users className="h-4 w-4 text-muted-foreground" />
+                  <Users className="h-4 w-4 text-[#DBA865]" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">12</div>
-                  <p className="text-xs text-muted-foreground">+3 new this month</p>
+                  <p className="text-xs text-[#DBA865]">+3 new this month</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="bg-[#0A2E4D] text-white">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Revenue</CardTitle>
-                  <DollarSign className="h-4 w-4 text-muted-foreground" />
+                  <DollarSign className="h-4 w-4 text-[#DBA865]" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">$15,231</div>
-                  <p className="text-xs text-muted-foreground">+20.1% from last month</p>
+                  <p className="text-xs text-[#DBA865]">+20.1% from last month</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="bg-[#0A2E4D] text-white">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">AI Assists</CardTitle>
-                  <BarChart className="h-4 w-4 text-muted-foreground" />
+                  <BarChart className="h-4 w-4 text-[#DBA865]" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">73</div>
-                  <p className="text-xs text-muted-foreground">+42% from last month</p>
+                  <p className="text-xs text-[#DBA865]">+42% from last month</p>
                 </CardContent>
               </Card>
             </div>
             <div className="mt-6">
-              <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
-              {/* Add a list or table of recent activities here */}
+              <h2 className="text-xl font-semibold mb-4 text-[#DBA865]">Recent Activity</h2>
+              <div className="bg-[#0A2E4D] text-white p-4 rounded-lg">
+                <p>Recent activity details will be displayed here.</p>
+              </div>
             </div>
           </main>
         )
@@ -161,33 +172,42 @@ export default function LawyerDashboard() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
-      <header className="px-4 lg:px-6 h-16 flex items-center border-b border-gray-200 bg-white">
-        <Button variant="ghost" size="icon" className="md:hidden" onClick={toggleNav}>
+    <div className="flex flex-col min-h-screen bg-[#0A2E4D]">
+      <header className="px-4 lg:px-6 h-16 flex items-center border-b border-[#DBA865] bg-[#0A2E4D]">
+        <Button variant="ghost" size="icon" className="md:hidden text-[#DBA865]" onClick={toggleNav}>
           {isNavOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </Button>
         <Link className="flex items-center justify-center" href="/">
-          <Gavel className="h-6 w-6 text-blue-600" />
-          <span className="ml-2 text-2xl font-bold text-gray-900">Legal Forge</span>
+          {/* Logo Image */}
+          <Image
+            src={Logo}
+            alt="Legal Forge Logo"
+            className="h-[6vh] w-[30vh]"
+          />
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Button variant="outline" size="sm" onClick={handleLogout}>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={handleLogout}
+            className="border-[#DBA865] text-[#DBA865] hover:bg-[#DBA865] hover:text-[#0A2E4D]"
+          >
             Logout
           </Button>
         </nav>
       </header>
       <div className="flex flex-1 overflow-hidden">
         <aside
-          className={`bg-gray-800 text-white w-64 flex-shrink-0 overflow-y-auto transition-all duration-300 ease-in-out ${
+          className={`bg-[#0A2E4D] text-white w-64 flex-shrink-0 overflow-y-auto transition-all duration-300 ease-in-out ${
             isNavOpen ? "translate-x-0" : "-translate-x-full"
-          } md:translate-x-0`}
+          } md:translate-x-0 border-r border-[#DBA865]`}
         >
           <nav className="p-4 space-y-2">
             {features.map((feature) => (
               <Button
                 key={feature.name}
                 variant="ghost"
-                className="w-full justify-start text-white hover:bg-gray-700"
+                className="w-full justify-start text-[#DBA865] hover:bg-[#DBA865] hover:text-[#0A2E4D]"
                 onClick={() => selectFeature(feature.name)}
               >
                 <feature.icon className="mr-2 h-4 w-4" />
@@ -196,7 +216,7 @@ export default function LawyerDashboard() {
             ))}
           </nav>
         </aside>
-        <main className="flex-1 p-6 overflow-y-auto">
+        <main className="flex-1 p-6 overflow-y-auto bg-white">
           {renderFeatureContent()}
         </main>
       </div>
