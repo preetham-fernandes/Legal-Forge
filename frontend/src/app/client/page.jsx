@@ -29,12 +29,11 @@ import {
 import axios from "axios";
 
 const features = [
-  { name: "AI Document Generation", icon: FileSignature },
-  { name: "Legal Chatbot", icon: Bot },
-  { name: "Contract Review", icon: FileCheck },
   { name: "Case Tracking", icon: Clock },
   { name: "Consultation Booking", icon: CalendarIcon },
-  { name: "Document Creation", icon: PlusCircle },
+  { name: "Legal Chatbot", icon: Bot },
+  { name: "Document Creation", icon: FileSignature },
+  { name: "Contract Review", icon: FileCheck },
   { name: "AI Document Summary", icon: FileTextIcon },
 ];
 
@@ -131,16 +130,8 @@ export default function ClientDashboard() {
 
   const renderFeatureContent = () => {
     switch (selectedFeature) {
-      case "AI Document Generation":
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">AI-Powered Document Generation</h2>
-            <Textarea placeholder="Enter your document requirements..." />
-            <Button>Generate Document</Button>
-          </div>
-        );
       case "Legal Chatbot":
-          return <LegalChatbot />;
+        return <LegalChatbot />;
       case "Contract Review":
         return <ContractReview />;
       case "Case Tracking":
