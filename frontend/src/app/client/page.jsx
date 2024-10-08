@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
 import LegalChatbot from "@/components/ui/legal_chatbot";
 import ContractReview from "@/components/ui/contract_review";
+import CreateContract from "@/components/ui/create_contract"; // Ensure this import is correct
 
 import {
   Gavel,
@@ -41,6 +42,7 @@ export default function ClientDashboard() {
   const router = useRouter();
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [selectedFeature, setSelectedFeature] = useState(null);
+  const [selectedDocument, setSelectedDocument] = useState(null); // State for document selection
   const [file, setFile] = useState(null);
   const [summary, setSummary] = useState("");
   const [userQuestion, setUserQuestion] = useState("");
@@ -56,6 +58,7 @@ export default function ClientDashboard() {
 
   const selectFeature = (feature) => {
     setSelectedFeature(feature);
+    setSelectedDocument(null); // Reset document selection when changing feature
     if (window.innerWidth < 768) {
       setIsNavOpen(false);
     }
@@ -150,14 +153,17 @@ export default function ClientDashboard() {
           </div>
         );
       case "Document Creation":
+        if (selectedDocument === "contract") {
+          return <CreateContract />; // Render CreateContract component
+        }
         return (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Create Legal Documents</h2>
             <div className="grid grid-cols-2 gap-4">
-              <Button>Create Contract</Button>
-              <Button>Create Agreement</Button>
-              <Button>Create Privacy Policy</Button>
-              <Button>Create Terms of Service</Button>
+              <Button onClick={() => setSelectedDocument("contract")}>Create Contract</Button>
+              <Button onClick={() => setSelectedDocument("agreement")}>Create Agreement</Button>
+              <Button onClick={() => setSelectedDocument("privacy_policy")}>Create Privacy Policy</Button>
+              <Button onClick={() => setSelectedDocument("terms_of_service")}>Create Terms of Service</Button>
             </div>
           </div>
         );
