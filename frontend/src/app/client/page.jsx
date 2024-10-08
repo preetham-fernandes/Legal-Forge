@@ -8,7 +8,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
-import LegalChatbot from "@/components/ui/legal_chatbot"
+import LegalChatbot from "@/components/ui/legal_chatbot";
+import ContractReview from "@/components/ui/contract_review";
+
 import {
   Gavel,
   FileText,
@@ -140,13 +142,7 @@ export default function ClientDashboard() {
       case "Legal Chatbot":
           return <LegalChatbot />;
       case "Contract Review":
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Contract Review</h2>
-            <Input type="file" onChange={handleFileChange} />
-            <Button onClick={() => alert("Analyze Contract feature coming soon!")}>Analyze Contract</Button>
-          </div>
-        );
+        return <ContractReview />;
       case "Case Tracking":
         return (
           <div className="space-y-4">

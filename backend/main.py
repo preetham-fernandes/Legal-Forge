@@ -125,5 +125,69 @@ def legal_question():
     return jsonify({"answer": response})
 
 
+@app.route('/contract_review', methods=['POST'])
+def contract_review():
+    if 'file' not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+    
+    file = request.files['file']
+    try:
+        # Process the PDF file with pdfplumber
+        with pdfplumber.open(file) as pdf:
+            text = ''
+            for page in pdf.pages:
+                page_text = page.extract_text()
+                if page_text:  # Only add if there's text on the page
+                    text += page_text
+
+        # Log the extracted text to ensure it's being retrieved
+        print("Extracted contract text:", text[:200])  # Print first 200 characters for verification
+
+        if not text:
+            return jsonify({"error": "No text could be extracted from the PDF"}), 400
+
+        # Analyze contract text using your chosen language model
+        prompt_template = ''' 
+        "You are an advanced legal assistant specializing in contract analysis. 
+        Your task is to review the contract text provided and identify any potential issues, clauses, and overall relevance. 
+        Please summarize your findings, highlighting any red flags and important clauses. 
+        Respond in a clear, professional manner that can be understood by a general audience." 
+        DONT USE * IN YOUR RESPONSE
+        DONT USE BOLD WORDS IN YOUR RESPONSE
+        Contract Text: {contract_text}
+        
+        Analysis: 
+        '''
+        
+        PROMPT = PromptTemplate(
+            template=prompt_template, input_variables=["contract_text"]
+        )
+        
+        llm = genai(model='gemini-pro', temperature=1)
+        chain = LLMChain(llm=llm, prompt=PROMPT)
+        
+        response = chain.run({
+            "contract_text": text
+        })
+        
+        # Log the response to verify the AI's output
+        print("AI Analysis Response:", response)
+
+        if not response:
+            return jsonify({"error": "AI returned no analysis"}), 500
+
+        return jsonify({"analysis": response})
+
+    except Exception as e:
+        print("Error processing contract:", e)
+        return jsonify({"error": "Error analyzing contract"}), 500
+
+
+    except Exception as e:
+        print("Error processing contract:", e)
+        return jsonify({"error": "Error analyzing contract"}), 500
+
+
+
 if __name__ == '__main__':
     app.run(port=5000)
