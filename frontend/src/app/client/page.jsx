@@ -159,11 +159,8 @@ export default function ClientDashboard() {
         return (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Create Legal Documents</h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-4 gap-">
               <Button onClick={() => setSelectedDocument("contract")}>Create Contract</Button>
-              <Button onClick={() => setSelectedDocument("agreement")}>Create Agreement</Button>
-              <Button onClick={() => setSelectedDocument("privacy_policy")}>Create Privacy Policy</Button>
-              <Button onClick={() => setSelectedDocument("terms_of_service")}>Create Terms of Service</Button>
             </div>
           </div>
         );
