@@ -179,7 +179,6 @@ def contract_review():
 
 @app.route('/create_contract', methods=['POST'])
 def create_contract():
-    # Get input data from the request, such as contract details
     contract_details = request.json.get('details', 'No specific details provided.')
 
     # Define the prompt for generating a contract based on the input details
@@ -209,9 +208,6 @@ def create_contract():
         "contract_details": contract_details
     })
 
-    # Log the response to verify the AI's output
-    print("AI Generated Contract:", response)
-
     # If no response was generated, handle it accordingly
     if not response:
         return jsonify({"error": "AI returned no contract text"}), 500
@@ -219,5 +215,5 @@ def create_contract():
     # Return the generated contract in JSON format
     return jsonify({"contract": response})
 
-if __name__ == '__main__':
-    app.run(port=5000)
+if __name__ == "__main__":
+    app.run(debug=True)

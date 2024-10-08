@@ -8,7 +8,7 @@ import jsPDF from "jspdf";
 export default function CreateContract() {
   const [details, setDetails] = useState("");
   const [loading, setLoading] = useState(false);
-  const [generatedContract, setGeneratedContract] = useState(""); // State to hold the generated contract
+  const [generatedContract, setGeneratedContract] = useState("");
 
   const handleDetailsChange = (event) => {
     setDetails(event.target.value);
@@ -20,7 +20,7 @@ export default function CreateContract() {
       return;
     }
 
-    setLoading(true); // Start loading
+    setLoading(true);
 
     try {
       // Send the details to the backend to generate the contract
@@ -29,7 +29,7 @@ export default function CreateContract() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ details }),
+        body: JSON.stringify({ details }), // Ensure this matches the backend's expected input
       });
 
       if (!response.ok) {
@@ -37,7 +37,13 @@ export default function CreateContract() {
       }
 
       const data = await response.json();
-      const cleanContract = data.contract.replace(/\*/g, ""); // Remove asterisks from the contract
+
+      // Check if contract data exists in the response
+      if (!data.contract) {
+        throw new Error("No contract data received");
+      }
+
+      const cleanContract = data.contract.replace(/\*/g, ""); // Remove asterisks from the contract if necessary
       setGeneratedContract(cleanContract); // Set the cleaned generated contract in state
 
       // Generate and download the PDF
