@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/page": [
+    "/lawyer/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+      "static/chunks/app/lawyer/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -11,15 +11,15 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/login/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/login/page.js"
+      "static/chunks/app/page.js"
     ],
-    "/lawyer/page": [
+    "/client/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/lawyer/page.js"
+      "static/chunks/app/client/page.js"
     ]
   }
 }
