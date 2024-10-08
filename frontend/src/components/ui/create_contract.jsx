@@ -49,7 +49,20 @@ export default function CreateContract() {
       // Generate and download the PDF
       const doc = new jsPDF();
       const lines = doc.splitTextToSize(cleanContract, 190); // Adjust width accordingly
-      doc.text(lines, 10, 10);
+
+      // Loop through the lines to handle pagination
+      let y = 10; // Starting y position
+      const lineHeight = 10; // Space between lines
+
+      for (let i = 0; i < lines.length; i++) {
+        if (y + lineHeight > doc.internal.pageSize.height) {
+          doc.addPage(); // Add a new page
+          y = 10; // Reset y position
+        }
+        doc.text(lines[i], 10, y); // Write the line
+        y += lineHeight; // Move y position down for the next line
+      }
+
       doc.save("contract.pdf");
 
     } catch (error) {
