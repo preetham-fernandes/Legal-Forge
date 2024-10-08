@@ -1,4 +1,4 @@
-// File: C:\Users\Mark Lopes\Desktop\Hackathon\Hackathon1\Legal-Forge\frontend\src\app\layout.js
+// File: C:\Projects\Legal-Forge\frontend\src\app\layout.js
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
