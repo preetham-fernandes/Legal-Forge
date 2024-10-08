@@ -1,5 +1,11 @@
 {
+<<<<<<< HEAD
   "/client/page": "app/client/page.js",
   "/page": "app/page.js",
   "/login/page": "app/login/page.js"
+=======
+  "/page": "app/page.js",
+  "/login/page": "app/login/page.js",
+  "/client/page": "app/client/page.js"
+>>>>>>> 0df31b28e50c07d355eb09f6a26451def6b58a7f
 }
