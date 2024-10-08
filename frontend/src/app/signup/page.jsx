@@ -65,9 +65,15 @@ export default function SignupPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#0A2E4D]">
-      <header className="fixed top-0 left-0 right-0 px-4 lg:px-6 h-16 flex items-center bg-transparent text-[#dba865] z-10">
+      <header className="fixed top-0 left-0 right-0 px-4 lg:px-6 h-16 flex items-center bg-transparent text-white z-10">
+        {/* Logo Section */}
         <Link className="flex items-center justify-center" href="/">
-          <Image src={Logo} alt="Legal Forge Logo" width={120} height={40} />
+          {/* Logo Image */}
+          <Image
+            src={Logo}
+            alt="Legal Forge Logo"
+            className="h-[6vh] w-[30vh]"
+          />
         </Link>
       </header>
       <main className="flex-1 flex items-center justify-center text-[#dba865]">
