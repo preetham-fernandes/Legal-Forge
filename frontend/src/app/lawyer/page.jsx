@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import ContractReview from "@/components/ui/contract_review";
-import CreateContract from "@/components/ui/create_contract"
-import GetCases from "@/components/ui/get_cases" 
+import ContractReview from "@/components/contract_review";
+import CreateContract from "@/components/create_contract"
+import GetCases from "@/components/get_cases" 
 import Logo from "@/assets/logo.png";
 import {
   Gavel,
@@ -31,10 +31,10 @@ import {
 } from "lucide-react"
 
 const features = [
-  { name: "Contract Review", icon: FileText }, 
   { name: "My Clients", icon: MessageCircle },
   { name: "Document Drafting", icon: FileSignature },
-  { name: "Search Cases", icon: FileSignature },
+  { name: "Contract Review", icon: FileText }, 
+  { name: "Search Cases", icon: BookOpen },
   { name: "Profile Customization", icon: UserCircle },
 ]
 
@@ -83,18 +83,7 @@ export default function LawyerDashboard() {
           return <CreateContract />
         }
         return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-[#DBA865]">Document Drafting</h2>
-            <div className="grid grid-cols-4 gap-4">
-              <Button 
-                onClick={() => setSelectedDocument("contract")}
-                className="bg-[#DBA865] text-[#0A2E4D] hover:bg-[#c99b5a]"
-              >
-                Create Contract
-              </Button>
-            </div>
-            {selectedFeature === "Create Contract" && <CreateContract />}
-          </div>
+          <CreateContract />
         )
         case "Search Cases":
          return <GetCases />;
@@ -102,9 +91,11 @@ export default function LawyerDashboard() {
         return (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold text-[#DBA865]">Profile Customization</h2>
-            <Input placeholder="Areas of specialization" className="bg-white text-[#0A2E4D]" />
+            <Input placeholder="Areas of expertise" className="bg-white text-[#0A2E4D]" />
             <Input placeholder="Years of experience" className="bg-white text-[#0A2E4D]" />
-            <Textarea placeholder="Bio" className="bg-white text-[#0A2E4D]" />
+            <Input placeholder="Address" className="bg-white text-[#0A2E4D]" />
+            <Input placeholder="Office" className="bg-white text-[#0A2E4D]" />
+            <Textarea placeholder="About Me" className="bg-white text-[#0A2E4D]" />
             <Button className="bg-[#DBA865] text-[#0A2E4D] hover:bg-[#c99b5a]">Update Profile</Button>
           </div>
         )
