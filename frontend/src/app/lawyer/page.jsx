@@ -72,6 +72,16 @@ export default function LawyerDashboard() {
               <Button className="bg-[#DBA865] text-[#0A2E4D] hover:bg-[#c99b5a]">Video Conference</Button>
               <Button className="bg-[#DBA865] text-[#0A2E4D] hover:bg-[#c99b5a]">Send Message</Button>
             </div>
+            <Button 
+              className="mt-4 bg-[#DBA865] text-[#0A2E4D] hover:bg-[#c99b5a]"
+              onClick={() => {
+                // Trigger Calendly popup
+                window.Calendly.initPopupWidget({ url: 'https://calendly.com/realchamp298/legal-consultation' });
+                return false;
+              }}
+            >
+              Schedule Time with Me
+            </Button>
             <div className="mt-4">
               <h3 className="text-lg font-semibold text-[#DBA865]">Recent Communications</h3>
               <p className="text-[#000000]">List of recent client interactions will appear here.</p>
@@ -85,7 +95,7 @@ export default function LawyerDashboard() {
         return (
           <CreateContract />
         )
-        case "Search Cases":
+      case "Search Cases":
          return <GetCases />;
       case "Profile Customization":
         return (
@@ -205,6 +215,9 @@ export default function LawyerDashboard() {
           {renderFeatureContent()}
         </main>
       </div>
+      {/* Calendly link widget script and CSS */}
+      <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+      <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async />
     </div>
   )
 }

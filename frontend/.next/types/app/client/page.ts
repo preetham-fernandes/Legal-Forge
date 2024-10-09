@@ -1,4 +1,4 @@
-// File: C:\Projects\Legal-Forge\frontend\src\app\client\page.jsx
+// File: C:\Users\Mark Lopes\Desktop\Hackathon\Hackathon1\Legal-Forge\frontend\src\app\client\page.jsx
 import * as entry from '../../../../src/app/client/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
