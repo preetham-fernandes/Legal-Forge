@@ -33,8 +33,7 @@ const features = [
   { name: "Case Tracking", icon: Clock },
   { name: "Consultation Booking", icon: CalendarIcon },
   { name: "Legal Chatbot", icon: Bot },
-  { name: "Document Creation", icon: FileSignature },
-  { name: "Contract Review", icon: FileCheck },
+  { name: "Risk Analysis", icon: FileCheck },
   { name: "AI Document Summary", icon: FileTextIcon },
 ]
 
@@ -127,7 +126,7 @@ export default function ClientDashboard() {
     switch (selectedFeature) {
       case "Legal Chatbot":
         return <LegalChatbot />
-      case "Contract Review":
+      case "Risk Analysis":
         return <ContractReview />
       case "Case Tracking":
         return (
@@ -142,18 +141,6 @@ export default function ClientDashboard() {
             <h2 className="text-2xl font-bold text-[#0A2E4D]">Book a Consultation</h2>
             <Calendar className="bg-white rounded-lg p-2 border border-[#DBA865]" />
             <Button className="bg-[#DBA865] text-[#0A2E4D] hover:bg-[#C99754]">Find Available Lawyers</Button>
-          </div>
-        )
-      case "Document Creation":
-        if (selectedDocument === "contract") {
-          return <CreateContract />
-        }
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-[#0A2E4D]">Create Legal Documents</h2>
-            <div className="grid grid-cols-4 gap-4">
-              <Button onClick={() => setSelectedDocument("contract")} className="bg-[#DBA865] text-[#0A2E4D] hover:bg-[#C99754]">Create Contract</Button>
-            </div>
           </div>
         )
       case "AI Document Summary":
