@@ -67,11 +67,7 @@ export default function LawyerDashboard() {
         return (
           <div className="space-y-4">
             <h2 className="text-2xl font-bold text-[#DBA865]">Client Communication Tools</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Button className="bg-[#DBA865] text-[#0A2E4D] hover:bg-[#c99b5a]">Start Chat</Button>
-              <Button className="bg-[#DBA865] text-[#0A2E4D] hover:bg-[#c99b5a]">Video Conference</Button>
-              <Button className="bg-[#DBA865] text-[#0A2E4D] hover:bg-[#c99b5a]">Send Message</Button>
-            </div>
+            
             <Button 
               className="mt-4 bg-[#DBA865] text-[#0A2E4D] hover:bg-[#c99b5a]"
               onClick={() => {
